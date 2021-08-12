@@ -31,4 +31,4 @@ jobs:
       run: |
         aws s3 cp \
           --region ap-northeast-2 \
-          ./demo/*.war s3://s3-cicd-test
+          /home/runner/work/Test/Test/demo/target/demo-0.0.1-SNAPSHOT.war s3://s3-cicd-test
