@@ -31,4 +31,4 @@ jobs:
       run: |
         aws s3 cp \
           --region ap-northeast-2 \
-          ./build/libs/*.war s3://s3-cicd-test
+          ./*.war s3://s3-cicd-test
