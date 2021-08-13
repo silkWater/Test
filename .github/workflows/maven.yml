@@ -37,6 +37,6 @@ jobs:
       run: |
         aws deploy create-deployment
         --application-name code-deploy-test
-        --deployment-config-name CodeDeployDefault.OneAtATime
+        --deployment-config-name CodeDeployDefault.AllAtOnce
         --deployment-group-name code-deploy-group-test
-        --s3-location bucket=s3-cicd-test,bundleType=war,key=demo/target/*.war
+        --s3-location bucket=s3-cicd-test, bundleType=war, key=demo/target/*.war
