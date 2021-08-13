@@ -52,4 +52,4 @@ jobs:
           --application-name code-deploy-test \
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --deployment-group-name code-deploy-group-test \
-          --s3-location bucket=s3-cicd-test,bundleType=war,key=./demo/target/*.war
+          --s3-location bucket=s3-cicd-test,bundleType=zip,key=./demo/target/demo-0.0.1-SNAPSHOT.war.zip
