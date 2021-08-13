@@ -32,3 +32,11 @@ jobs:
         aws s3 cp \
           --region ap-northeast-2 \
           ./demo/target/*.war s3://s3-cicd-test
+          
+    - name: Code Deploy
+      run: |
+        aws deploy create-deployment
+        --application-name code-deploy-test
+        --deployment-config-name CodeDeployDefault.OneAtATime
+        --deployment-group-name code-deploy-group-test
+        --s3-location bucket=s3-cicd-test,bundleType=war,key=demo/target/*.war
