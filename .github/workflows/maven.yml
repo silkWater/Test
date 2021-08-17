@@ -38,9 +38,9 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_S3_UPLOAD_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_S3_UPLOAD_KEY }}
       run: |
-        aws s3 cp \
+        aws s3 zip \
           --region ap-northeast-2 \
-          s3://s3-cicd-test/demo-0.0.1-SNAPSHOT.war s3://s3-cicd-test/demo-0.0.1-SNAPSHOT.war.zip
+          -r s3://s3-cicd-test/demo-0.0.1-SNAPSHOT.war.zip .
 
     - name: Code Deploy
       env:
