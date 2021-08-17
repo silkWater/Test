@@ -40,7 +40,7 @@ jobs:
       run: |
         aws s3 zip \
           --region ap-northeast-2 \
-          -r s3://s3-cicd-test/demo-0.0.1-SNAPSHOT.war.zip .
+          -r * s3://s3-cicd-test/demo-0.0.1-SNAPSHOT.war.zip
 
     - name: Code Deploy
       env:
