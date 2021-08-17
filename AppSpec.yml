@@ -1,0 +1,9 @@
+version: 0.0
+Resources:
+  - TargetService:
+    Type: AWS::ECS::Service
+    Properties:
+      TaskDefinition: "arn:aws:iam::593859740731:user/github-s3-full-access"
+      LoadBalancerInfo:
+        ContainerName: "SampleApplicationName"
+        ContainerPort: 80
