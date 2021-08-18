@@ -21,8 +21,13 @@ jobs:
       with:
         java-version: '16'
         distribution: 'adopt'
+        
     - name: Build with Maven
       run: mvn -B package --file demo/pom.xml
+      
+    - name: zip
+      run: zip -qq -r ./demo-0.0.1-SNAPSHOT.war.zip .
+      shell: bash
 
     - name: Build file upload to AWS S3
       env:
@@ -32,15 +37,6 @@ jobs:
         aws s3 cp \
           --region ap-northeast-2 \
           ./demo/target/*.war s3://s3-cicd-test
-          
-    - name: war to zip
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_S3_UPLOAD_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_S3_UPLOAD_KEY }}
-      run: |
-        aws s3 mv \
-          --region ap-northeast-2 \
-          s3://s3-cicd-test/demo-0.0.1-SNAPSHOT.war s3://s3-cicd-test/demo-0.0.1-SNAPSHOT.war.zip
 
     - name: Code Deploy
       env:
