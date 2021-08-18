@@ -48,6 +48,15 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		
+		<resources>
+			<resource>
+				<directory>/</directory>
+				<includes>
+					<include>**/appspec.yml</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 
 </project>
