@@ -1,23 +1,37 @@
 #!/bin/bash
+# sudo bash {PATH}/deploy.sh 8080 springproject
 
-REPOSITORY=/home/ec2-user/build
-echo "REPOSITORY = $REPOSITORY"
-cd $REPOSITORY
-
-PROJECT_NAME=demo-0.0.1-SNAPSHOT.war
-echo "PROJECT_NAME = $PROJECT_NAME"
-
-PROJECT_PID=$(pgrep -f $PROJECT_NAME)
-echo "PROJECT_PID = $PROJECT_PID"
-
-if [ -z $PROJECT_PID ]; then
-    echo "no running project"
-else
-    kill -9 $PROJECT_PID
-    sleep 3
-fi
-
-JAR_NAME=$(ls $REPOSITORY/ | grep $PROJECT_NAME | tail -n 1)
-echo "JAR_NAME = $JAR_NAME"
-
-java -jar $REPOSITORY/$JAR_NAME &
+# Server Port
+# Ex) 8080
+SERVER_PORT=8080
+# Service Name
+# Ex) springproject
+PROJECT_NAME=demo
+ 
+PROJECT_PATH=/home/ec2-user/build/demo/target
+WAR_FILE=$PROJECT_PATH/$PROJECT_NAME-0.0.1-SNAPSHOT.war
+TMP_PATH_NAME=/tmp/$PROJECT_NAME-pid
+ 
+# Function
+function stop(){
+    sudo echo " "
+    sudo echo "Stoping process on port: $SERVER_PORT"
+    sudo fuser -n tcp -k $SERVER_PORT 
+ 
+    if [ -f $TMP_PATH_NAME ]; then
+        sudo rm $TMP_PATH_NAME
+    fi
+ 
+    sudo echo " "
+}
+ 
+function start(){
+    sudo echo " "
+    sudo nohup java -jar -Dserver.port=$SERVER_PORT $WAR_FILE /tmp 2>> /dev/null >> /dev/null &
+    sudo echo " "
+}
+ 
+# Function Call
+stop
+ 
+start
