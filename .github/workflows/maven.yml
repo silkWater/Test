@@ -25,20 +25,20 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file demo/pom.xml
       
-    - name: zip
-      run: zip -qq -r ./demo-0.0.1-SNAPSHOT.war.zip .
+    - name: Make Bundle
+      run: zip -qq -r ./demo-0.0.1-SNAPSHOT.zip .
       shell: bash
 
-    - name: Build file upload to AWS S3
+    - name: Upload to AWS S3
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_S3_UPLOAD_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_S3_UPLOAD_KEY }}
       run: |
         aws s3 cp \
           --region ap-northeast-2 \
-          ./demo-0.0.1-SNAPSHOT.war.zip s3://s3-cicd-test
+          ./demo-0.0.1-SNAPSHOT.zip s3://s3-cicd-test
 
-    - name: Code Deploy
+    - name: AWS Deploy
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_S3_UPLOAD_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_S3_UPLOAD_KEY }}
@@ -48,4 +48,4 @@ jobs:
           --application-name code-deploy-test \
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --deployment-group-name code-deploy-group-test \
-          --s3-location bucket=s3-cicd-test,bundleType=zip,key=demo-0.0.1-SNAPSHOT.war.zip
+          --s3-location bucket=s3-cicd-test,bundleType=zip,key=demo-0.0.1-SNAPSHOT.zip
