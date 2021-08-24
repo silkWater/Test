@@ -8,11 +8,11 @@ public class HelloWorld {
 
 	@RequestMapping("/hello")
 	public String hello() {
-		return "Hello World !!!!";
+		return "Hello World !";
 	}
 	
 	@RequestMapping("/aws")
 	public String aws() {
-		return "The first AWS CI/CD !!!";
+		return "CI/CD Template in AWS !";
 	}
 }
