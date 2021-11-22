@@ -13,6 +13,6 @@ public class HelloWorld {
 	
 	@RequestMapping("/aws")
 	public String aws() {
-		return "CI/CD Test in AWS !!";
+		return "CI/CD Test in AWS !!!";
 	}
 }
